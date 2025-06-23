@@ -59,18 +59,29 @@ Do similar for other files.
 start_task : it is a dummy task indicating the start of execution of tasks in dag
 
 task_1 : in this we generate a random number, push it to the xcom with key as number
+
 task_2: in this we first pull the number from xcom, if it greater than 5, then we trigger the task_3 else task_4 will be triggered. this is a branch operator like if else condition, so the only one task will be executed and other is skipped.
+
 task_3 and task_4 :these are just a printing using bash command,execution depends on the branching.
+
 task_5 : this will be executed only if number is greater thn 5 else it will be skipped.since this is also comes under branching.this task runs a pyspark job using the bash command for submit job in dataproc
+
 task_6: this also falls under branching, hence only executed is <5 else skipped. this runs a pyspark script in dataproc but using dataproc operator , not using bash command like previous one.
+
 task_7:this task should execute regardless of the braching, i.e which ever path it takes, it converges here. so if we keep trigger rules as default it wont run, so i have changed it to NONE_FAILED_MIN_ONE_SUCCESS, that means no previous task should have failed, and atleast one success have happened in previous tasks. Now this task will fetch bq_dataset which is a variables i had set in airflow.and also it will show how to fetch context variables like prev_start_date_success which refers to previous task runs.
+
 task_8: this task shows how to write a task using task flow api.
+
 task_9: this is a sensor which checks for a demo.txt file in bucket path for 10min for every 30sec.if not found, it will fail, so next task wont be executed by default. 
+
 task_10: this is a task using operator of bigquery. this will take a file in gca and puts data in bigquery table, if table is not there it will create. task_9 ensures the file is present in gcs .
+
 task_11: this task shows how to use dag level params. in our dag we have set params as {"name":"akshay","age":25}, we can use these in anyof the tasks, while running we can also change these values. if we set these params in task level,then they are called task level params, which is only available to that particular task. 
+
 task_12: this task shows how to fetch triggered config values. while running dag manually , we can send some values for the dag.
 this is kind of similar to params, but this will be useful only for manual running, but params will always have value in scheduled dag runs . 
 that means imagine most time name should have "akshay" as value, then just give in params instead of defining everytime using trigger configs.if we want to chaneg the value of params sometime we can do it while triggering . but triggered config is useful when u want to pass different values each time
+
 end_task: this is a dummy task which indicates the execution of all upstream tasks.
 
 
