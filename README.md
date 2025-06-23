@@ -43,14 +43,14 @@
 1. Since we are doing in GCP, composer can be used which is managed service for airflow. Create composer environment by giving workload configurations(machine infos) to scheduler,dag processor,triggerer, web server. 
 2. Since we are also having some pyspark tasks, we will run them on dataproc which is a managed spark service in gcp. So create a dataproc cluster with worker nodes and master node with required machine configurations.
 3. Once we create a composer environment, it will give us a airflow web ui to see and manage all dags
-4. It will also create a gcs bucker to store all files. Our bucket is : us-central1-airflows-624a107f-bucket
+4. It will also create a gcs bucker to store all files. Our bucket is : us-central1-airflows-bucket
 5. in this bucket in dags folder upload the dag file, in data folder upload the python functions file.once u do this, our dag will appear in webui.
 Inorder for the dag to get necessary python functions, we need to define sys path where to look for these files.sys.path.insert(0, "/home/airflow/gcs/data")
 so the dag file will first(0) check this path for python_functions file before anything else.
-6. for pyspark task, upload pyspark script in anywhere in gcs , but i chose to upload in the gcs bucket created by dataproc itself. dataproc-staging-us-central1-483457509980-pqr3a5dk
+6. for pyspark task, upload pyspark script in anywhere in gcs , but i chose to upload in the gcs bucket created by dataproc itself. dataproc-staging-us-central1-pqr3a5dk
 7. Do these in cloud shell : nano control_flow.py , nano python_functions.py and nano pyspark_script.py .Copy all codes in these files and save and exit.
-8. Then push these files into required locations. for example dag file into us-central1-airflows-624a107f-bucket/dags gcs path.
-Command is: gsutil cp control_flow.py gs://us-central1-airflows-624a107f-bucket/dags
+8. Then push these files into required locations. for example dag file into us-central1-airflows-bucket/dags gcs path.
+Command is: gsutil cp control_flow.py gs://us-central1-airflows-bucket/dags
 Do similar for other files. 
 9. In order to update content of the file: either nano into file and edit and copy file again. or delete the file using "rm -f file_name" command and do process again.
 10. Once you have dag in webui, you can trigger there, or if it scheduled it will run in scheduled time, or trigger using command line or trigger using api using requests.post(airflow_url)
