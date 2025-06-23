@@ -47,7 +47,7 @@
 5. in this bucket in dags folder upload the dag file, in data folder upload the python functions file.once u do this, our dag will appear in webui.
 Inorder for the dag to get necessary python functions, we need to define sys path where to look for these files.sys.path.insert(0, "/home/airflow/gcs/data")
 so the dag file will first(0) check this path for python_functions file before anything else.
-6. for pyspark task, upload pyspark script in anywhere in gcs , but i chose to upload in the gcs bucket created by dataproc itself. dataproc-staging-us-central1-pqr3a5dk
+6. for pyspark task, upload pyspark script in anywhere in gcs , but i chose to upload in the gcs bucket created by dataproc itself. dataproc-staging-us-central1
 7. Do these in cloud shell : nano control_flow.py , nano python_functions.py and nano pyspark_script.py .Copy all codes in these files and save and exit.
 8. Then push these files into required locations. for example dag file into us-central1-airflows-bucket/dags gcs path.
 Command is: gsutil cp control_flow.py gs://us-central1-airflows-bucket/dags
