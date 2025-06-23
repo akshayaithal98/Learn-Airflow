@@ -57,6 +57,7 @@ Do similar for other files.
 
 ## Dag Tasks Explaination:
 start_task : it is a dummy task indicating the start of execution of tasks in dag
+
 task_1 : in this we generate a random number, push it to the xcom with key as number
 task_2: in this we first pull the number from xcom, if it greater than 5, then we trigger the task_3 else task_4 will be triggered. this is a branch operator like if else condition, so the only one task will be executed and other is skipped.
 task_3 and task_4 :these are just a printing using bash command,execution depends on the branching.
